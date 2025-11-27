@@ -338,9 +338,15 @@ export default function GameBoard() {
             } catch (error: any) {
                 console.error(`KOKO Payment attempt ${attempt} failed:`, error);
 
+                // Extract detailed error message
+                let errorMessage = error.message || "Unknown error";
+                if (error.logs) {
+                    errorMessage += `\nLogs: ${error.logs.join('\n')}`;
+                }
+
                 // If it's the last attempt, show error
                 if (attempt === MAX_RETRIES) {
-                    alert(`Payment failed after ${MAX_RETRIES} attempts. Please try again later.`);
+                    alert(`Payment failed after ${MAX_RETRIES} attempts.\nError: ${errorMessage}\n\nPlease check console for details.`);
                 } else {
                     // Wait a bit before retrying
                     await new Promise(r => setTimeout(r, 1000));
@@ -405,9 +411,15 @@ export default function GameBoard() {
             } catch (error: any) {
                 console.error(`SOL Payment attempt ${attempt} failed:`, error);
 
+                // Extract detailed error message
+                let errorMessage = error.message || "Unknown error";
+                if (error.logs) {
+                    errorMessage += `\nLogs: ${error.logs.join('\n')}`;
+                }
+
                 // If it's the last attempt, show error
                 if (attempt === MAX_RETRIES) {
-                    alert(`Payment failed after ${MAX_RETRIES} attempts. Please try again later.`);
+                    alert(`Payment failed after ${MAX_RETRIES} attempts.\nError: ${errorMessage}\n\nPlease check console for details.`);
                 } else {
                     // Wait a bit before retrying
                     await new Promise(r => setTimeout(r, 1000));
